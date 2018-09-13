@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/style.css" type="text/css" />
+    <title>GameIn</title>
+  </head>
+  <body>
+    <main id="app">
+
+
+<!--*******************************              MENU                  *************************-->
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" @click="currentPage = 'home'">GameIN</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item">
+                    <a @click="currentPage = 'home'"class="nav-link" >Accueil</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" @click="currentPage = 'home'">Categories <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" @click="currentPage = 'home'">Jeux</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" @click="currentPage = 'home'">Contacts</a>
+                </li>
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Rechercher...">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-secondary btn-number">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <a @click="currentPage = 'login'" class="btn btn-info btn-sm ml-3">
+                    <i class="fa fa-power-off"></i> Login
+                </a>
+            </form>
+        </div>
+    </div>
+</nav>
+
+
+<!--*******************************              LOGIN                *************************-->
+<section v-if="currentPage === 'login'">
+  <h2>email = admin@gmail.com et password = esiea</h2>
+  		<div class="login  border-light">
+  	    <form class="form-signin" @submit.prevent="login">
+  	      <h2 class="form-signin-heading">Please sign in</h2>
+  	      <label for="inputEmail" class="sr-only">Email address</label>
+  	      <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+  	      <label for="inputPassword" class="sr-only">Password</label>
+  	      <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+          <button class="btn btn-lg btn-primary btn-block" v-on:click="authentification ()">Connexion</button>
+  	    </form>
+</section>
+
+
+
+<!--*******************************              ADMIN                 *************************-->
+<section v-else-if="currentPage === 'admin'">
+
+<!--*******************************              CATALOGUE PS4                  *************************-->
+
+  <div class="card-header bg-success text-white text-uppercase">PS4 GAMES</div>
+  <a class="btn btn-info btn-sm ml-3" @click="currentPage = 'home'">
+      <i class="fa fa-power-off"></i> Logout
+  </a>
+          <div class="container my-5">
+          <div class="row">
+          <div class="col-md-3" v-for="item in ps4g">
+            <div class="card">
+
+              <img class="card-img-top" :src="item.image" />
+
+              <div class="card-body">
+                <h4 class="card-title">{{ item.name }}</h4>
+                <div class="card-text">${{ item.price / 100 }}</div>
+                <div class="row justify-content-end">
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        </div>
+</section>
+
+<section v-else-if="currentPage === 'achatrealise'">
+    <h2>Felicitations pour votre achat ! Veuillez cliquer sur Accueil</h2>
+
+</section>
+
+
+<section v-else-if="currentPage === 'home'">
+
+<!--*******************************             HOME               *************************-->
+
+
+                      <!--***********     CATEGORIES DE JEUX             **********-->
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-3">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Consoles</div>
+                <ul class="list-group category_block">
+                    <li class="list-group-item"><a>PS4</a></li>
+                    <li class="list-group-item"><a @click="currentPage = 'home'">XBOX ONE</a></li>
+                    <li class="list-group-item"><a @click="currentPage = 'home'">PC</a></li>
+                    <li class="list-group-item"><a @click="currentPage = 'home'">NINTENDO SWITCH</a></li>
+                    <li class="list-group-item"><a @click="currentPage = 'home'">3DS</a></li>
+                    <li class="list-group-item"><a @click="currentPage = 'home'">PS VITA</a></li>
+                </ul>
+            </div>
+          </div>
+
+                      <!--***********          PANIER            **********-->
+
+          <div class="col">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                  <div>
+                  <h3>Panier : </h3>
+                  <button class="btn btn-success fa fa-shopping-cart btn-sm ml-3" @click="showCart = !showCart" v-show="!verified">
+                      {{ items.length + (items.length > 1 || items.length === 0 ? " jeux" : " item") }}
+                    </button>
+                  </div>
+                </div>
+                <div class="cart" v-show="showCart">
+                  <div v-show="items.length > 0">
+                    <ul>
+                      <li v-for="item in items" transition="fade">
+                        <p><strong>{{ item.quantity }}</strong> - {{ item.name }} <i class="fa fa-trash" @click="removeFromCart(item)"></i></p>
+                      </li>
+                    </ul>
+                  <div><button class="btn btn-info " @click="verified = true, showCart = false"> Valider</button></div>
+                          </div>
+                          <div v-show="items.length === 0">
+                            <p>Votre panier est vide!</p>
+                          </div>
+                          </div>
+                <div class="checkout" v-show="verified">
+                  <h3>Votre panier</h3>
+                  <h5 v-for="(item,index) in items"><strong>{{ item.quantity }}</strong> - {{ item.name }}</h5>
+                  <hr />
+                  <div class="row">
+                    <div class="u-pull-right">
+                      <h5>Total: <span>{{ total }}€</span></h5>
+                      <button class="btn btn-info fa fa-check" @click="currentPage = 'achatrealise'" >Finaliser la commande</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+
+               <!--***********     MEILLEURES VENTES            **********-->
+
+            <div class="card bg-light mb-3">
+            </div>
+        </div>
+
+<div class="card-header bg-success text-white text-uppercase">Meilleures ventes</div>
+        <div class="container my-5">
+        <div class="row">
+        <div class="col-md-3" v-for="(item,indexf) in forSale">
+          <div class="card">
+
+            <img class="card-img-top" :src="item.image" />
+
+            <div class="card-body">
+              <h4 class="card-title">{{ item.name }}</h4>
+              <div class="card-text">€{{ item.price / 100 }}</div>
+              <div class="row justify-content-end">
+                <button class="btn btn-primary" @click="addToCartf(item,indexf)">Ajouter</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      </div>
+
+        <!--***********     JEUX RETRO            **********-->
+
+      <div class="card-header bg-success text-white text-uppercase">RETRO GAMING</div>
+              <div class="container my-5">
+              <div class="row">
+              <div class="col-md-3" v-for="(item,index) in retro">
+                <div class="card">
+
+                  <img class="card-img-top" :src="item.image" />
+
+                  <div class="card-body">
+                    <h4 class="card-title">{{ item.name }}</h4>
+                    <div class="card-text">€{{ item.price / 100 }}</div>
+                    <div class="row justify-content-end">
+                      <button class="btn btn-primary" @click="addToCartr(item,index)">Ajouter</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            </div>
+</section>
+                  <!--***********     FOOTER            **********-->
+
+<footer class="text-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-lg-4 col-xl-3">
+                <h5>A propos</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <p class="mb-0">
+                    GameIN est un commerce en ligne regroupant les meilleurs jeux-videos du monde entier.
+                </p>
+            </div>
+
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
+                <h5>Informations</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <ul class="list-unstyled">
+                    <li><a >Copyright © GameIn 2018</a></li>
+                    <li><a >Ashanth et Stephane</a></li>
+
+                </ul>
+            </div>
+
+            <div class="col-md-4 col-lg-3 col-xl-3">
+                <h5>Contact</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-home mr-2"></i> ESIEA</li>
+                    <li><i class="fa fa-envelope mr-2"></i> gamein@gmail.com</li>
+                    <li><i class="fa fa-phone mr-2"></i> + 33 00 11 22 33</li>
+                </ul>
+            </div>
+    </div>
+</footer>
+
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+Vue.prototype.$http = axios
+
+const app = new Vue({
+  el: '#app',
+  name: 'app',
+  data: {
+
+
+
+    items: [],
+    currentPage: 'home',
+    showCart: false,
+    verified: false,
+    quantity: 1,
+    currency:'$',
+    email:'',
+    password:'',
+
+
+
+    forSale: [
+    { id: 1, name: 'Final Fantasy', quantity: 0, image: 'assets/final.jpg', price: 999 },
+    { id: 2, name: 'Ratchet and Clank', quantity: 0, image: 'assets/rachet.jpg', price: 1499 },
+    { id: 3, name: 'Dark Souls', quantity: 0, image: 'assets/ds.jpg', price: 499 },
+    { id: 4, name: 'Zelda', quantity: 0, image: 'assets/zelda.png', price: 299 },
+    { id: 5, name: 'Mario Kart 8', quantity: 0, image: 'assets/mk.jpg', price: 1000 },
+    { id: 6, name: 'Gran Turismo', quantity: 0, image: 'assets/gt.jpg', price: 1500 },
+    { id: 7, name: 'Tekken 7', quantity: 0, image: 'assets/tekken7.jpeg', price: 2000 },
+    { id: 8, name: 'Sonic', quantity: 0, image: 'assets/sonic.png', price: 4000 },
+  ],
+  ps4g: [
+  { id: 1, name: 'Horizon Down', quantity: 0, image: 'assets/hrz.jpg', price: 999 },
+  { id: 2, name: 'Resident Evils VII', quantity: 0, image: 'assets/re.jpg', price: 1499 },
+  { id: 3, name: 'The witcher III', quantity: 0, image: 'assets/tw3.jpg', price: 499 },
+  { id: 4, name: 'Shadow of the colesseus', quantity: 0, image: 'assets/sotc.jpg', price: 299 },
+  ],
+  retro: [
+  { id: 2, name: 'Bomberman World', quantity: 0, image: 'assets/bbm.jpg', price: '1499' },
+  { id: 3, name: 'Castlevania', quantity: 0, image: 'assets/castlevania.jpg', price: 499 },
+  { id: 4, name: 'Chrono Trigger', quantity: 0, image: 'assets/ct.jpg', price: 299 },
+  { id: 5, name: 'Final Fantasy 7', quantity: 0, image: 'assets/ff7.jpg', price: 1000 },
+  { id: 6, name: 'Killer Instinct', quantity: 0, image: 'assets/ki.jpg', price: 1500 },
+  { id: 1, name: 'Mario Bros', quantity: 0, image: 'assets/marioretro.png', price: 999 },
+  { id: 7, name: 'Megaman X', quantity: 0, image: 'assets/mgm.jpg', price: 2000 },
+  { id: 8, name: 'Pokemon JAUNE', quantity: 0, image: 'assets/pkmjaune.jpg', price: 4000 },
+]},
+computed: {
+    total() {
+      var total = 0;
+      for(var i = 0; i < this.items.length; i++) {
+        total += this.items[i].price;
+      }
+      return total/100;
+    }
+  },
+  created () {
+    // Ici, l'utilisation d'une fonction flêchée () => {} plutôt que function () {} est primordial !
+    // sans fonction fléchée, this.myList = ... ne fonctionnera pas comme prévu
+    this.$http.get('/items')
+      .then(items => {
+        console.log('affichage de ma liste', items)
+        this.items = items.data
+      })
+      .catch(err => {
+        console.log('error', err)
+      })
+  },
+
+
+
+
+
+
+  methods: {
+    addToCartr(item,index) {
+    this.$http.post('/items', {
+      name: this.retro[index].name,
+      price: this.retro[index].price
+
+    })
+    .then(() => {
+      this.items.push({
+        name: this.retro[index].name,
+        price: this.retro[index].price
+      })
+    })
+
+},
+addToCartf(item,indexf) {
+
+  console.log(this.retro[0].price);
+  console.log(this.retro[1].name);
+  this.$http.post('/items', {
+  name: this.forSale[indexf].name,
+  price: this.forSale[indexf].price
+
+})
+.then(() => {
+  this.items.push({
+    name: this.forSale[indexf].name,
+    price: this.forSale[indexf].price
+  })
+})
+
+},
+removeFromCartr(item,index) {
+  item.quantity -= 1;
+  this.items.slice(item);
+this.$http.delete('/items', {
+
+
+})
+.then(() => {
+  this.items.push({
+    name: this.retro[index].name,
+    price: this.retro[index].price
+  })
+})
+
+},
+authentification () {
+  this.$http.get('/login', {
+  })
+    .then((login) => {
+      if (login.data[0].username == this.email && login.data[0].password == this.password)
+        {
+            console.log('connecte' )
+            this.currentPage='admin'
+        }
+        else{
+          console.log('non connecte')
+        }
+    })
+
+},
+
+    removeFromCart(item,index) {
+      item.quantity -= 1;
+      this.items.splice(this.items.indexOf(item), 1);
+      delete items[index];
+    }
+  }
+})
+
+    </script>
+  </body>
+</html>
